@@ -60,11 +60,23 @@
 						$("#dialog").dialog('close');
 
 						$('#newNames tr:last').after('<tr><td>'+$('#newName').text()+'</td><td>'+$('input[name=gender]:checked', '#genderForm').val()+'</td></tr>');
-					}
-					//for (i = 0; i < nameArray.length; i++) {
-					//	console.log(nameArray[i].name2 + " , " + nameArray[i].gender);
-					//}
 					
+					var numOfFemale = 0;
+					for (i = 0; i < nameArray.length; i++) {
+						
+						if (nameArray[i].gender == "Female") {
+							numOfFemale += 1;
+						}
+
+					//	console.log(nameArray[i].name2 + " , " + nameArray[i].gender);
+
+					}
+
+					var percent = numOfFemale/nameArray.length * 100;
+
+					$('#genderPercentage').text(percent + "% female sources");
+				}
+				
 				});
 
 				function Name(name, gender) {
@@ -106,6 +118,8 @@
 				</tr>
 
 			</table>
+			<div id="genderPercentage">
+			</div>
 		</div>
 
 	</div>
