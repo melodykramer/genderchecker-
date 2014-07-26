@@ -2,6 +2,8 @@ genderchecker-
 ==============
 [hackpad URL](https://techlady.hackpad.com/Gender-Checker-GCsRxOmaqKG)
 
+[backend repo](https://github.com/rioh/genderchecker_backend)
+
 ### Hello world! 
 
 We are working on a way to figure out how many men vs. how many women are quoted in any given article.
