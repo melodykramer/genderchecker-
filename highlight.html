@@ -10,7 +10,9 @@
 		<script type="text/javascript">
 			
 			/** getSelected taken from http://mark.koli.ch/static/entries/use-javascript-and-jquery-to-get-user-selected-text/get-selected-text-javascript.html **/
-			
+			var nameArray = [];
+
+
 			if(!window.Kolich){
 				Kolich = {};
 			}	
@@ -32,10 +34,11 @@
 			Kolich.Selector.mouseup = function(){
 				var st = Kolich.Selector.getSelected();
 				if(st!=''){
-					$("#dialog").html("You selected " + st + "</br> Is this source... </br>" + 
-						"<form> <input type='checkbox' value='Male'>Male</input>" + 
-						"<input type='checkbox' value='Female'>Female</input> </br>" +
-						"<input type='submit' value='Submit'></input></form>");
+					$("#dialog").html("You selected <span id='newName'>" + st + "</span></br> Is this source... </br>" + 
+						"<form id='genderForm'><input type='radio' name='gender' value='Male'>Male</input>" + 
+						"<input type='radio' name='gender' value='Female'>Female</input> </br>" +
+						"<span id='error' style='display:none; color:red'> Please select a gender.</span> </br>" + 
+						"<input type='button' id='addName' value='Submit'></input></form>");
 					$("#dialog").dialog({
         				resizable: false,
         				modal: true,
@@ -46,7 +49,34 @@
 			
 			$(document).ready(function(){
 				$(document).bind("mouseup", Kolich.Selector.mouseup);
+
+				$('#addName').live("click", function(){
+					if ($('input[name=gender]:checked','#genderForm').val() == undefined) {
+						$('#error').css("display", "block");
+					} else {
+						var newName = new Name($('#newName').text(), $('input[name=gender]:checked', '#genderForm').val());
+						nameArray.push(newName);
+
+						$("#dialog").dialog('close');
+
+						$('#newNames tr:last').after('<tr><td>'+$('#newName').text()+'</td><td>'+$('input[name=gender]:checked', '#genderForm').val()+'</td></tr>');
+					}
+					//for (i = 0; i < nameArray.length; i++) {
+					//	console.log(nameArray[i].name2 + " , " + nameArray[i].gender);
+					//}
+					
+				});
+
+				function Name(name, gender) {
+					this.name2 = name;
+					this.gender = gender;
+				}
+
 			});
+
+			
+			
+
 						
 		</script>
 		<style type="text/css">
@@ -66,9 +96,18 @@
 		<p>Cras vulputate felis eget purus commodo in tristique nibh bibendum. Suspendisse in nunc tellus. Aliquam egestas ligula eu lorem commodo euismod. Sed vel dui vel metus vestibulum lobortis ut id mi. Donec eros libero, eleifend at vulputate sit amet, dignissim eu ligula. Quisque convallis quam dictum ante iaculis ut pretium elit ornare. Suspendisse eu ligula in libero imperdiet fermentum ut quis metus. Suspendisse commodo dolor metus, vitae egestas urna. Aenean vestibulum enim ac augue accumsan eleifend. Fusce egestas justo id erat pharetra vel iaculis metus varius. Vestibulum pretium lectus dui. Fusce eu urna elementum libero volutpat aliquet in eu mi. Etiam ut metus augue.</p> 
 
 		<div id="dialog">
-
-
 		</div>
+
+		<div id="newNames">
+			<table id="tableName" border="1">
+				<tr>
+					<th>Name</th>
+					<th>Gender</th>
+				</tr>
+
+			</table>
+		</div>
+
 	</div>
 	</body>
 </html>
