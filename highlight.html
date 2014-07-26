@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Get Selected Text JavaScript Example</title>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
+  	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+  	<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+
+		<script type="text/javascript">
+			
+			/** getSelected taken from http://mark.koli.ch/static/entries/use-javascript-and-jquery-to-get-user-selected-text/get-selected-text-javascript.html **/
+			
+			if(!window.Kolich){
+				Kolich = {};
+			}	
+	
+			Kolich.Selector = {};
+
+			Kolich.Selector.getSelected = function(){
+				var t = '';
+				if(window.getSelection){
+					t = window.getSelection();
+				} else if(document.getSelection){
+				 	t = document.getSelection();
+				}else if(document.selection){
+					t = document.selection.createRange().text;
+				}
+				return t;
+			}
+			
+			Kolich.Selector.mouseup = function(){
+				var st = Kolich.Selector.getSelected();
+				if(st!=''){
+					$("#dialog").html("You selected " + st + "</br> Is this source... </br>" + 
+						"<form> <input type='checkbox' value='Male'>Male</input>" + 
+						"<input type='checkbox' value='Female'>Female</input> </br>" +
+						"<input type='submit' value='Submit'></input></form>");
+					$("#dialog").dialog({
+        				resizable: false,
+        				modal: true,
+        				height: 250,
+        				width: 400});
+				}
+			}
+			
+			$(document).ready(function(){
+				$(document).bind("mouseup", Kolich.Selector.mouseup);
+			});
+						
+		</script>
+		<style type="text/css">
+			body { margin: 30px; }
+
+}
+		</style>
+
+	</head>
+	<body>
+		<div id="articleText">
+		<h2>Select some text on the page ...</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet tortor metus, et blandit ipsum. Aenean accumsan condimentum blandit. Suspendisse commodo, massa nec hendrerit consectetur, urna est fringilla lorem, quis tincidunt lectus ligula quis nisi. Integer sed sem quis quam scelerisque pulvinar. Donec in lorem ipsum. Sed gravida ornare congue. Maecenas vitae ante eu metus gravida condimentum vitae vitae metus. Nam purus ipsum, placerat vel tincidunt id, iaculis et ante. In tristique, nibh id luctus sodales, risus turpis fringilla tellus, nec semper metus est eu lectus. Nam porttitor rutrum odio, in placerat tellus mollis ac. Vestibulum nibh orci, cursus ut fringilla ac, aliquet non ipsum. Quisque sit amet erat eros. In condimentum arcu nec neque varius eu gravida dolor pharetra. Nunc id risus dui, sit amet porttitor enim. Ut pharetra ipsum id eros hendrerit accumsan. Vestibulum id augue ipsum, vel rutrum augue.</p>
+		<p>Mauris ornare mauris vitae est imperdiet nec vehicula arcu facilisis. Vivamus velit eros, aliquam non ultricies a, tincidunt ac lectus. Mauris adipiscing consectetur blandit. Morbi porttitor suscipit velit, ut semper nulla bibendum non. Quisque erat odio, lacinia ac placerat eget, accumsan nec leo. Sed tellus leo, vehicula ac tempor a, aliquam sed nibh. Curabitur et mi nibh. Vestibulum gravida porttitor nibh, bibendum rhoncus velit ullamcorper non. Quisque dictum enim non est commodo nec condimentum nulla commodo. Vestibulum ac arcu tortor. Nam nec tellus odio.</p>
+		<p>Morbi nulla massa, tristique a interdum et, euismod in leo. Morbi fringilla orci nec leo dignissim sagittis ac aliquam nibh. Integer consequat velit eu ante mollis non consequat ipsum tincidunt. Nam vestibulum quam a massa aliquet eleifend. Vestibulum quis gravida orci. Donec vel dui nec neque scelerisque aliquam. Aliquam erat volutpat. Nam magna metus, euismod eget pretium vitae, pellentesque et neque. Suspendisse gravida, enim a tempus vehicula, arcu arcu suscipit tortor, sed venenatis nulla ante sed elit. Pellentesque fringilla nibh quis diam congue id laoreet nunc pellentesque. Integer ac dictum magna. Fusce sit amet neque tortor, id gravida velit. Donec viverra rhoncus luctus.</p>
+		<p>Donec a odio nunc. Nulla porta convallis nunc quis porttitor. Vestibulum ut eros erat, ac fringilla libero. Sed eros nunc, semper at congue et, iaculis ac nulla. Vivamus pellentesque mattis eros nec pretium. Donec in tellus ac neque laoreet cursus in eget mauris. Nunc ac ligula risus, quis rutrum ipsum. Praesent nec nibh sed sem ullamcorper aliquam. Duis eget dolor eget purus ullamcorper suscipit quis eu diam. Nam eu tellus leo. Fusce eget elit eget quam posuere dictum. Nunc lectus enim, eleifend ut dapibus a, placerat nec dolor.</p>
+		<p>Cras vulputate felis eget purus commodo in tristique nibh bibendum. Suspendisse in nunc tellus. Aliquam egestas ligula eu lorem commodo euismod. Sed vel dui vel metus vestibulum lobortis ut id mi. Donec eros libero, eleifend at vulputate sit amet, dignissim eu ligula. Quisque convallis quam dictum ante iaculis ut pretium elit ornare. Suspendisse eu ligula in libero imperdiet fermentum ut quis metus. Suspendisse commodo dolor metus, vitae egestas urna. Aenean vestibulum enim ac augue accumsan eleifend. Fusce egestas justo id erat pharetra vel iaculis metus varius. Vestibulum pretium lectus dui. Fusce eu urna elementum libero volutpat aliquet in eu mi. Etiam ut metus augue.</p> 
+
+		<div id="dialog">
+
+
+		</div>
+	</div>
+	</body>
+</html>
